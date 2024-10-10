@@ -82,9 +82,15 @@ TPU (Thermoplastic Polyurethane) was chosen as the primary material due to its e
 
 TPU's elasticity ensures that the landing gear can deform under load and then return to its original shape, minimizing the risk of structural damage and enhancing the longevity of the components during repeated use.
 
-![Alt text](aaa.PNG)
-
 The CAD design is created using Fusion 360. It consists of 6 angular tubes that are acting as shock absorbers, a bottom plate to prevent the tubes to be bent more than intended, and a tube on top that will wrap the testbed landing legs. The landing gear is installed on the landing leg using four M5 bolts. Each bolt needs to be longer than 55 mm, with a thread coverage of at least 25 mm. The nuts should be locknuts to ensure they remain secure and do not loosen due to vibration.
 
+![Alt text](aaa.PNG)
 
-- **Remarks:** This section provides an assessment of the work completed and offers insights for future considerations. It includes an evaluation of the outcomes, hlighting successes and any areas where the work met or exceeded expectations. It also discusses potential risks encountered during the project and the risks ociated with using or implementing the work, offering strategies for managing or mitigating these risks. Additionally, possible improvements and suggestions for ining the approach or outcomes are provided. Recommendations for future or follow-up work may be outlined, offering guidance for further developments, iterations, related projects that build upon the current task. This section ensures a reflective, comprehensive, and forward-looking perspective on the work completed, moting continuous improvement and innovation.
+The model is printed on a Bambu Lab X1-Carbon Combo 3D printer. One landing gear is used per landing leg, making 4 in total. The design is used for multiple flight tests, and no damage on the landing gear is observed. During the flight tests, the landing gear proved to be successful for absorbing the landing loads.
+
+The landing gear design: https://a360.co/4dwC8Na
+
+# Remarks
+- The decision to use TPU for the landing gear was crucial to enhancing its shock absorption and resilience. The material’s flexibility provides a distinct advantage over rigid options like PLA or ABS, especially in applications where energy absorption is key to preventing damage.
+- While the single body landing gear system worked effectively in this case, further refinements in the design may help maximize its energy-absorbing potential and strength, such as incorporating different materials for the installation area or thickness variations that enhance deformation in critical areas during impact.
+- Initial testing has shown promising results, but additional real-world testing is recommended to assess the long-term performance of TPU under varying environmental conditions and repeated landings.
