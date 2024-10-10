@@ -82,7 +82,7 @@ TPU (Thermoplastic Polyurethane) was chosen as the primary material due to its e
 
 TPU's elasticity ensures that the landing gear can deform under load and then return to its original shape, minimizing the risk of structural damage and enhancing the longevity of the components during repeated use.
 
-![Alt text]("https://github.com/alperenag/random/blob/main/aaa.PNG")
+![Alt text](aaa.PNG)
 
 The CAD design is created using Fusion 360. It consists of 6 angular tubes that are acting as shock absorbers, a bottom plate to prevent the tubes to be bent more than intended, and a tube on top that will wrap the testbed landing legs. The landing gear is installed on the landing leg using four M5 bolts. Each bolt needs to be longer than 55 mm, with a thread coverage of at least 25 mm. The nuts should be locknuts to ensure they remain secure and do not loosen due to vibration.
 
