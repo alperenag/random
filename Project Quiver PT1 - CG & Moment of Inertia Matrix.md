@@ -4,45 +4,90 @@
 
 # Project Description
 
-This study aims to deliver the center of gravity and moment of inertia matrix for PT1 and establish a straightforward method for calculating the new center of gravity and moment of inertia for the drone when additional mass is added, namely payload. Accurate determination of these parameters is essential for evaluating stability and maneuverability, particularly when modifications like adding payloads or new components are made.
+This study aims to determine the center of gravity (CG) and moment of inertia matrix for PT1 both without payload and with various payload weights and sizes. Additionally, it seeks to establish a straightforward method for calculating the updated CG and moment of inertia matrix when adding an additional mass, particularly payloads. Accurate determination of these parameters is crucial for evaluating stability, maneuverability, and for developing a simulation model to analyze the drone's performance under different configurations.
 
 # Methodology 
-The process involves five main steps:
+The center of gravity and moment of inertia matrix are obtained through the design of the aircraft on Onshape.
 
-1. Determine the New CG:
+The addition of a new mass to the system will affect the center of gravity and the moment of inertia matrix of the drone. The calculation of the modified parameters involve three  main steps:
 
-Calculate the weighted average of the original CG and the position of the added mass.
-Adjust the Original Moment of Inertia:
+1. Determine the New CG 
+ - Calculate the weighted average of the original CG and the position of the added mass.
+2. Adjust the Original Moment of Inertia:
+- Shift the original moment of inertia matrix to the new CG using the parallel axis theorem.
+3. Add the Effect of the New Mass:
+- Provide the moment of inertia of the new mass treat it as a point load or to compute its contribution to the moment of inertia relative to the new CG.
+- Combine this with the adjusted original moment of inertia matrix to get the updated values.
 
-Shift the original moment of inertia matrix to the new CG using the parallel axis theorem.
-Add the Effect of the New Mass:
+This process will be implemented using an Octave script to make them repeatable and efficient.
 
-Treat the new mass as a point load to compute its contribution to the moment of inertia relative to the new CG.
-Combine this with the adjusted original moment of inertia matrix to get the updated values.
-- Ease of manufacturing, specifically through 3D printing
-- Durability for repeated use
-- Protection of aircraft components by absorbing the energy from landing impacts
-- Compatibility with the existing landing legs, avoiding the need to replace them or develop additional systems.
-
-The optimal design for a basic landing gear involves creating it as a single component, where the gear itself functions as the shock absorber. The material must be compatible with most 3D printers on the market and possess a degree of flexibility to ensure it effectively absorbs impact energy. The design should achieve an ideal balance of stiffness to compress under the testbed’s landing loads at maximum takeoff weight (MTOW), while remaining structurally sound when supporting the MTOW on the ground. 
-
-The strength of 3D-printed parts is influenced by various factors, such as the type of printer, slicing software, print settings, and the condition of the filament, which makes FEA unreliable and misleading in this case. In addition, performing a dedicated structural test would require specialized equipment and a complex test setup, making it both expensive and time-consuming. As a result, the model will be tested directly on the aircraft, with iterative adjustments made based on its performance during real-world use.
+Fasteners, cables, connectors, and other small components are not included in the aircraft model and therefore do not contribute to the moment of inertia matrix. Including them would require waiting for a complete design freeze, which would significantly delay progress. As their contribution is negligible compared to the overall aircraft, this assumption is reasonable at this stage.
 
 # Results and Deliverables
+The payload weight and center of gravity completely depend on the attachment used on the aircraft. In this section, the parameters for the base configuration (with 1 x Tattu Gen 3.0 14S 28ah battery) with no attachment will be provided, as well as various sample cases which will be most likely to be utilized in the short term. If other cases are required, the Octave script is provided with this document to be used creating the parameters. 
 
-TPU (Thermoplastic Polyurethane) was chosen as the primary material due to its excellent elastic properties and durability. Unlike more rigid materials like PLA, TPU provides flexibility that helps absorb impact energy, making it ideal for applications involving shock absorption such as landing gear.
+**Reference Frame**
+* All data provided in this section complies with the following reference frame.
+* Origin: At the center of thrust.
+* Axes:
+  * X: Backward direction.
+  * Y: Right
+  * Z: Upward
 
-TPU's elasticity ensures that the landing gear can deform under load and then return to its original shape, minimizing the risk of structural damage and enhancing the longevity of the components during repeated use.
+**Moment of Inertia Matrix Definition**
 
-The CAD design is created using Fusion 360. It consists of 6 angular tubes that are acting as shock absorbers, a bottom plate to prevent the tubes to be bent more than intended, and a tube on top that will wrap the testbed landing legs. The landing gear is installed on the landing leg using four M5 bolts. Each bolt needs to be longer than 55 mm, with a thread coverage of at least 25 mm. The nuts should be locknuts to ensure they remain secure and do not loosen due to vibration.
+|   |   |   |
+| -- | -- | -- |
+| I<sub>xx</sub> | I<sub>xy</sub> | I<sub>xz</sub> |
+| I<sub>xy</sub> | I<sub>yy</sub> | I<sub>yz</sub>  |
+| I<sub>xz</sub>  | I<sub>yz</sub>  | I<sub>zz</sub>  |
 
-![Alt text](aaa.PNG)
+### **Case 1**
+* Base configuration with no payload
+* Weight: 18 kg
+* CG location: [0	0	3.36] cm
 
-The model is printed on a Bambu Lab X1-Carbon Combo 3D printer. One landing gear is used per landing leg, making 4 in total. The design is used for multiple flight tests, and no damage on the landing gear is observed. During the flight tests, the landing gear proved to be successful for absorbing the landing loads.
+| I: | [g x cm<sup>2</sup>]  |   |
+| -- | -- | -- |
+| 1.24E+07 | 793.57 | -39876 |
+| 793.57 | 1.225E+07 | -349.24 |
+| -39876 | -349.24 | 2.17E+07 |
 
-The landing gear design: https://a360.co/4dwC8Na
+### **Case 2**
+* Base configuration with brush bullet dispenser
+  * 4 kg @ [0, 0, -20] cm
+* Weight: 22 kg
+* CG location: [0	0	-0.89] cm
+
+|	I:	|	[g x cm<sup>2</sup>]	|		|
+|	--	|	--	|	--	|
+|	1.42E+07	|	793.57	|	-39876	|
+|	793.57	|	1.40E+07	|	-349.24	|
+|	-39876	|	-349.24	|	2.17E+07	|
+
+### **Case 3**
+* Using Tattu Gen 3.0 14S 25ah with no payload
+* Weight: 18 kg
+* CG location: [-1.16	0	-0.89] cm
+
+|	I:	|	[g x cm<sup>2</sup>]	|		|
+|	--	|	--	|	--	|
+|	1.24E+07	|	739.95	|	3.71E+04	|
+|	739.95	|	1.22E+07	|	-344.74	|
+|	3.71E+04	|	-344.74	|	2.17E+07	|
+
+### **Case 4**
+* Using Tattu Gen 3.0 14S 25ah with brush bullet dispenser
+  * 4 kg @ [0, 0, -20] cm
+* Weight: 22 kg
+* CG location: [-0.95	0	-0.89] cm
+
+|	I:	|	[g x cm<sup>2</sup>]	|		|
+|	--	|	--	|	--	|
+|	1.42E+07	|	739.95	|	1.26E+05	|
+|	739.95	|	1.40E+07	|	-344.74	|
+|	1.26E+05	|	-344.74	|	2.17E+07	|
 
 # Remarks
-- The decision to use TPU for the landing gear was crucial to enhancing its shock absorption and resilience. The material’s flexibility provides a distinct advantage over rigid options like PLA or ABS, especially in applications where energy absorption is key to preventing damage.
-- While the single body landing gear system worked effectively in this case, further refinements in the design may help maximize its energy-absorbing potential and strength, such as incorporating different materials for the installation area or thickness variations that enhance deformation in critical areas during impact.
-- Initial testing has shown promising results, but additional real-world testing is recommended to assess the long-term performance of TPU under varying environmental conditions and repeated landings.
+- The parameters provided here are for preliminary studies only, mainly due to lack of accurate CAD models of each part on the aircraft.
+- Due to the assumption stated in methodology and possible mismatches between the design and real model, more accurate parameters can be obtained from the real flight test data.
